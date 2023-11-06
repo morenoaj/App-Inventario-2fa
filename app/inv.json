@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "userid": "1",
+    "name": "Leche",
+    "stock": "10",
+    "price": "20"
+  },
+  {
+    "id": 2,
+    "userid": "1",
+    "name": "Pan",
+    "stock": "20",
+    "price": "1.50"
+  },
+  {
+    "id": 3,
+    "userid": "2",
+    "name": "Huevos",
+    "stock": "15",
+    "price": "3.25"
+  },
+  {
+    "id": 4,
+    "userid": "2",
+    "name": "Manzanas",
+    "stock": "30",
+    "price": "0.75"
+  },
+  {
+    "id": 5,
+    "userid": "3",
+    "name": "Arroz",
+    "stock": "25",
+    "price": "1.90"
+  },
+  {
+    "id": 6,
+    "userid": "3",
+    "name": "Pollo",
+    "stock": "12",
+    "price": "4.50"
+  },
+  {
+    "id": 7,
+    "userid": "4",
+    "name": "Aceite de cocina",
+    "stock": "18",
+    "price": "3.75"
+  },
+  {
+    "id": 8,
+    "userid": "5",
+    "name": "Cerveza",
+    "stock": "24",
+    "price": "1.99"
+  },
+  {
+    "id": 9,
+    "userid": "6",
+    "name": "Pasta",
+    "stock": "22",
+    "price": "1.20"
+  },
+  {
+    "id": 10,
+    "userid": "4",
+    "name": "Café",
+    "stock": "28",
+    "price": "4.50"
+  },
+  {
+    "id": 11,
+    "userid": "7",
+    "name": "Jabón de baño",
+    "stock": "35",
+    "price": "2.99"
+  },
+  {
+    "id": 12,
+    "userid": "8",
+    "name": "Detergente",
+    "stock": "14",
+    "price": "2.25"
+  },
+  {
+    "id": 13,
+    "userid": "5",
+    "name": "Refresco",
+    "stock": "30",
+    "price": "1.25"
+  },
+  {
+    "id": 14,
+    "userid": "9",
+    "name": "Papel higiénico",
+    "stock": "40",
+    "price": "0.99"
+  },
+  {
+    "id": 15,
+    "userid": "7",
+    "name": "Yogur",
+    "stock": "20",
+    "price": "1.75"
+  },
+  {
+    "id": 16,
+    "userid": "8",
+    "name": "Tortillas",
+    "stock": "36",
+    "price": "2.00"
+  },
+  {
+    "id": 17,
+    "userid": "10",
+    "name": "Pañales",
+    "stock": "10",
+    "price": "7.99"
+  },
+  {
+    "id": 18,
+    "userid": "9",
+    "name": "Queso",
+    "stock": "15",
+    "price": "3.50"
+  },
+  {
+    "id": 19,
+    "userid": "10",
+    "name": "Papel toalla",
+    "stock": "28",
+    "price": "1.75"
+  },
+  {
+    "id": 20,
+    "userid": "6",
+    "name": "Sopa enlatada",
+    "stock": "25",
+    "price": "1.40"
+  }
+]
