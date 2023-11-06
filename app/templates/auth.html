@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="boxicons/css/boxicons.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Autenticación</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f8f8;
+    }
+  </style>
+  <script>
+    // Función para iniciar el temporizador
+    function startTimer() {
+      var timerElement = document.getElementById('timer');
+      var countdownElement = document.getElementById('countdown');
+      var countdownMessageElement = document.getElementById('countdown-message');
+
+      timerElement.style.display = 'block';
+
+      var count = 45;
+      var timerInterval = setInterval(function () {
+        countdownElement.innerText = count;
+        count--;
+
+        if (count < 0) {
+          clearInterval(timerInterval);
+          countdownMessageElement.innerText = 'Su token ha expirado. Por favor, vuelva a intentarlo.';
+          setTimeout(function () {
+            location.href = '/'; // Redirigir al usuario al login
+          }, 2000); // Esperar 2 segundos antes de redirigir
+        }
+      }, 1000); // Actualizar el temporizador cada segundo
+    }
+  </script>
+</head>
+
+<body onload="startTimer()">
+  <div class="form-box">
+    <div class="login-container" id="login">
+      <div class="top">
+        <header>Autenticación</header>
+      </div>
+      <div id="timer" style="display: none;">
+        <p id="countdown-message" style="font-weight: bold; color: white;">Su token expira en <span
+            id="countdown">45</span> segundos. Por favor, vuelva a intentarlo.</p>
+      </div>
+      <form action="{{ url_for('auth') }}" method="POST">
+        {% if error_message %}
+        <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+        <div class="input-box">
+          <input type="text" class="input-field" id="token" name="token" placeholder="ABC123">
+          <i class="bx bx-user"></i>
+        </div>
+        <div class="input-box">
+          <input type="submit" class="submit" value="Autenticar">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

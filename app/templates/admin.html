@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="boxicons/css/boxicons.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            background-color: hsla(0, 0%, 100%, 0.7);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .table {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center mt-5 mb-5 text-white">Admin Panel</h1>
+    <h3 class="text-center mt-5 mb-5 text-white">Bienvenido {{ session.get('username') }}</h3>
+
+    <!-- Botón de Logout -->
+    <form class="text-center" action="/logout" method="POST">
+        <button class="btn btn-danger mb-3 " type="submit">Logout</button>
+    </form>
+
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="/user" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Username</label>
+                            <input type="text" class="form-control mb-3" name="username">
+                        </div>
+                        <div class="col">
+                            <label>email</label>
+                            <input type="text" class="form-control mb-3" name="email">
+                        </div>
+                        <div class="col">
+                            <label>Password</label>
+                            <input type="text" class="form-control mb-3" name="password">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary mb-3 mt-4" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tabla -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in users %}
+                        <tr>
+                            <td>{{d.id}}</td>
+                            <td>{{d.username}}</td>
+                            <td>{{d.email}}</td>
+                            <td>{{d.password}}</td>
+                            <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.id}}" data-bs-toggle="modal"
+                                    data-bs-target="#modal{{d.id}}">Edit</button></td>
+                            <td><a href="{{url_for('delete_user', user_id=d.id)}}"
+                                    class="btn btn-danger btn-sm">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Formulario de edición -->
+                {% for d in users %}
+                <div class="modal fade" id="modal{{d.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{d.username}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/edit/user/{{d.id}}" method="post">
+                                    <div class="form-group">
+                                        <label for="id">ID</label>
+                                        <input type="number" class="form-control" id="id" name="id" value="{{d.id}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-username">Username</label>
+                                        <input type="text" class="form-control" id="edit-username" name="username"
+                                            value="{{d.username}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-email">email</label>
+                                        <input type="text" class="form-control" id="edit-email" name="email"
+                                            value="{{d.email}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-password">Password</label>
+                                        <input type="text" class="form-control" id="edit-password" name="password"
+                                            value="{{d.password}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

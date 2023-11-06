@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="boxicons/css/boxicons.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Menu - Manager App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            background-color: hsla(0, 0%, 100%, 0.7);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .table {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center mt-5 mb-5 text-white">Inventory Manager</h1>
+    <h3 class="text-center mt-5 mb-5 text-white">Bienvenido {{ session.get('username') }}</h3>
+
+    <!-- Botón de Logout -->
+    <form class="text-center" action="/logout" method="POST">
+        <button class="btn btn-danger mb-3 " type="submit">Logout</button>
+    </form>
+
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="/item" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Item Name</label>
+                            <input type="text" class="form-control mb-3" name="item_name">
+                        </div>
+                        <div class="col">
+                            <label>USER_ID</label>
+                            <input type="number" class="form-control mb-3" name="userid" value="{{ session.get('id') }}">
+                        </div>
+                        <div class="col">
+                            <label>Stock</label>
+                            <input type="number" class="form-control mb-3" name="stock">
+                        </div>
+                        <div class="col">
+                            <label>Price</label>
+                            <input type="number" step="0.01" class="form-control mb-3" name="price">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary mb-3 mt-4" type="submit">Add Item</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tabla -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in items %}
+                        <tr>
+                            <td>{{d.id}}</td>
+                            <td>{{d.name}}</td>
+                            <td>{{d.stock}}</td>
+                            <td>{{d.price}}</td>
+                            <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Edit</button></td>
+                            <td><a href="{{url_for('delete_item', item_id=d.id)}}" class="btn btn-danger btn-sm">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Formulario de edición -->
+                {% for d in items %}
+                <div class="modal fade" id="modal{{d.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{d.name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/edit/item/{{d.id}}" method="post">
+                                    <div class="form-group">
+                                        <label for="id">ID</label>
+                                        <input type="number" class="form-control" id="id" name="id" value="{{d.id}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userid">USER_ID</label>
+                                        <input type="number" class="form-control" id="userid" name="userid" value="{{d.userid}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="item_name">Item Name</label>
+                                        <input type="text" class="form-control" id="item_name" name="item_name" value="{{d.name}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stock">Stock</label>
+                                        <input type="number" class="form-control" id="stock" name="stock" value="{{d.stock}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-price">Price</label>
+                                        <input type="number" step="0.01" class="form-control" id="edit-price" name="price" value="{{d.price}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
